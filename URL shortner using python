@@ -1,0 +1,37 @@
+import string
+import random
+
+class URLShortener:
+    def __init__(self):
+        self.url_mapping = {}
+        self.allowed_characters = string.ascii_letters + string.digits
+        self.base_url = "https://your-domain.com/"
+
+    def shorten_url(self, long_url):
+        while True:
+            short_code = self.generate_short_code()
+            if short_code not in self.url_mapping:
+                self.url_mapping[short_code] = long_url
+                short_url = self.base_url + short_code
+                return short_url
+
+    def generate_short_code(self):
+        short_code = ''.join(random.choice(self.allowed_characters) for _ in range(6))
+        return short_code
+
+    def get_long_url(self, short_url):
+        short_code = short_url.split("/")[-1]
+        long_url = self.url_mapping.get(short_code)
+        return long_url
+
+# Example Usage
+shortener = URLShortener()
+
+# Shorten a URL
+long_url = "https://www.example.com/this-is-a-long-url-that-needs-to-be-shortened"
+short_url = shortener.shorten_url(long_url)
+print("Shortened URL:", short_url)
+
+# Retrieve the original URL
+original_url = shortener.get_long_url(short_url)
+print("Original URL:", original_url)
