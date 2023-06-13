@@ -1,3 +1,4 @@
+#python program for URL shortener for more details read "Readme.md"
 import string
 import random
 
